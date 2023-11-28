@@ -20,8 +20,6 @@ REQUISITI:
   count: 0 <-- inserisci qui il numero totale delle inserzioni trovate
 }
 
-- da ogni inserzione trovata, elimina i campi "description", "requirements", "benefits" e "company_profile" per semplificare il risultato
-
 - la tua ricerca deve essere "case insensitive" (non deve essere influenzata da lettere maiuscole o minuscole nelle parole cercate). Questo e' possibile trasformando tutto in lettere minuscole con .toLowerCase()
 
 PARTE 2: 
