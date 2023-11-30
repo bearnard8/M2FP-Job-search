@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Job Search</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <script src="script.js"></script>
+    <div id="inputs">
+        <label for="job-title">What kind of job are you looking for</label>
+        <input type="text" name="job-title" id="job-title" placeholder="Write here your dream job">
+        <label for="job-location">Where would you like to work?</label>
+        <input type="text" name="job-location" id="job-location" placeholder="Write here the perfect location">
+        <button id="job-src" onclick="jobSearch()">Search for your Dream Job!</button>
+    </div>
+    <div id="results"></div>
 </body>
 </html>

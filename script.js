@@ -20,7 +20,8 @@ REQUISITI:
   count: 0 <-- inserisci qui il numero totale delle inserzioni trovate
 }
 
-- la tua ricerca deve essere "case insensitive" (non deve essere influenzata da lettere maiuscole o minuscole nelle parole cercate). Questo e' possibile trasformando tutto in lettere minuscole con .toLowerCase()
+- la tua ricerca deve essere "case insensitive" (non deve essere influenzata da lettere maiuscole o minuscole nelle parole cercate). 
+  Questo e' possibile trasformando tutto in lettere minuscole con .toLowerCase()
 
 PARTE 2: 
 Nella pagina HTML, inserisci 2 input di tipo testo (uno per la location e uno per il titolo lavorativo, ricordati di diversificarli con un id) e un bottone con valore “cerca”
@@ -33,19 +34,6 @@ Dopo aver raccolto ed elaborato i dati, e’ il momento di mostrare i risultati 
     SUGGERIMENTO: ti servira’ un ciclo for!
 
 */
-
-//? DATI DI RICERCA
-//*   richiedere dati di ricerca
-//*   memorizzare questi dati in due variabili
-//*     inizializzazione var jobTitle con prompt
-//*     inizializzazione var jobLocation con prompt
-//? CONFRONTO DATI E ARRAY
-//*   loop di confronto con dato "title" e dato "location", per memorizzare un index devono essere veri entrambi
-//*     ciclo for dove per ogni index controllo array.title e array.location in cerca di un partial match
-//!       ricordarsi toLowerCase ad ogni var che si confronta e anche alle voci dell'array, che presentano maiuscole 
-//*     memorizzare le voci true in un nuovo array
-//*     count++
-//*   return new Array
 
 // NON MODIFICARE QUESTO ARRAY!
 const jobs = [
@@ -135,19 +123,44 @@ const jobs = [
   },
 ]
 
-let jobTitle = prompt("Che tipo di lavoro stai cercando?");
-let jobLocation = prompt("Dove vorresti lavorare?");
-let count = 0;
-let results = [];
+let searchParent = document.getElementById("results");
 
-for (let i = 0; i < jobs.length; i++) {
-  if(jobTitle.toLowerCase() === jobs[i].title.toLowerCase() && jobLocation.toLowerCase() === jobs[i].location.toLowerCase()){
-    results.push(jobs[i]);
-    count++;
+function createResponse (obj) {
+  searchParent.innerText = "";
+  for (i = 0; i < obj.count; i++) {
+    // div che contiene il successivi span
+    let resultDiv = document.createElement("div");
+    resultDiv.id = "result-" + (i + 1);
+    searchParent.appendChild(resultDiv);
+    // primo span che contiene il numero univoco del risultato
+    let numberSpan = document.createElement("span");
+    resultDiv.appendChild(numberSpan);
+    numberSpan.innerText = "Result " + [i + 1];
+    // elemento di stacco
+    let space = document.createElement("span");
+    space.innerText = " | ";
+    resultDiv.appendChild(space);
+    // secondo span che contiene il contenuto del risultato
+    let contentSpan = document.createElement("span");
+    contentSpan.innerText = obj.matches[i].title + " - " + obj.matches[i].location;
+    resultDiv.appendChild(contentSpan);
   }
 }
 
-console.log(count);
-console.log(results);
-
-
+function jobSearch() {
+  let jobTitle = document.getElementById("job-title").value;
+  let jobLocation = document.getElementById("job-location").value;
+  let count = 0;
+  let matches = [];
+  for (let i = 0; i < jobs.length; i++) {
+    if(jobs[i].title.toLowerCase().includes(jobTitle.toLowerCase()) && jobs[i].location.toLowerCase().includes(jobLocation.toLowerCase())){
+      matches.push(jobs[i]);
+      count++;
+    }
+  }
+  let result = {
+    matches,
+    count
+  };
+  createResponse(result);
+}
